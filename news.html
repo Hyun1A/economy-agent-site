@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>시사 분석 · 경제 아젠다</title>
+<meta name="description" content="News & Issues">
+<script>
+(function(){
+  var root=document.documentElement;
+  var saved=localStorage.getItem('ea-theme');
+  if(saved){root.setAttribute('data-theme',saved);}
+  function cur(){return root.getAttribute('data-theme')|| (matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');}
+  window.__toggleTheme=function(){var n=cur()==='dark'?'light':'dark';root.setAttribute('data-theme',n);localStorage.setItem('ea-theme',n);};
+})();
+</script>
+<style>
+:root{
+  --bg:#f7f5f0; --surface:#fffdf8; --surface-2:#f0ece3;
+  --ink:#1a1a2e; --ink-soft:#4a4a63; --ink-mute:#8a8a9a;
+  --line:#e2ddd2; --line-strong:#cfc8b8;
+  --gold:#a8842c; --gold-soft:#f3ecd8;
+  --up:#c0392b; --down:#1f5fa8; --flat:#7a7a8a;
+  --accent:#1a3a5c;
+  --shadow:0 1px 3px rgba(26,26,46,.06),0 8px 24px rgba(26,26,46,.05);
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#0e1420; --surface:#151d2e; --surface-2:#1c2638;
+    --ink:#eef1f6; --ink-soft:#aeb6c6; --ink-mute:#6b7488;
+    --line:#243049; --line-strong:#33415f;
+    --gold:#d4b46a; --gold-soft:#2a2a1e;
+    --up:#e8635a; --down:#5b9be0; --flat:#8892a6;
+    --accent:#7ea6d8;
+    --shadow:0 1px 3px rgba(0,0,0,.3),0 12px 32px rgba(0,0,0,.28);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0e1420; --surface:#151d2e; --surface-2:#1c2638;
+  --ink:#eef1f6; --ink-soft:#aeb6c6; --ink-mute:#6b7488;
+  --line:#243049; --line-strong:#33415f; --gold:#d4b46a; --gold-soft:#2a2a1e;
+  --up:#e8635a; --down:#5b9be0; --flat:#8892a6; --accent:#7ea6d8;
+  --shadow:0 1px 3px rgba(0,0,0,.3),0 12px 32px rgba(0,0,0,.28);
+}
+:root[data-theme="light"]{
+  --bg:#f7f5f0; --surface:#fffdf8; --surface-2:#f0ece3;
+  --ink:#1a1a2e; --ink-soft:#4a4a63; --ink-mute:#8a8a9a;
+  --line:#e2ddd2; --line-strong:#cfc8b8; --gold:#a8842c; --gold-soft:#f3ecd8;
+  --up:#c0392b; --down:#1f5fa8; --flat:#7a7a8a; --accent:#1a3a5c;
+  --shadow:0 1px 3px rgba(26,26,46,.06),0 8px 24px rgba(26,26,46,.05);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:'Inter','Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;font-size:15.5px;line-height:1.72;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:3px}
+.mono{font-family:'SF Mono','JetBrains Mono','D2Coding',ui-monospace,monospace;font-variant-numeric:tabular-nums}
+.up{color:var(--up)} .down{color:var(--down)} .flat{color:var(--flat)}
+
+/* ── 상단 마스트헤드 ── */
+.masthead{border-bottom:1px solid var(--line-strong);background:var(--surface);position:sticky;top:0;z-index:50;backdrop-filter:blur(8px)}
+.masthead .wrap{display:flex;align-items:center;gap:18px;height:62px}
+.brand{font-family:'Georgia','Nanum Myeongjo','Apple SD Gothic Neo',serif;font-weight:700;font-size:20px;letter-spacing:-.01em;color:var(--ink);white-space:nowrap}
+.brand .dot{color:var(--gold)}
+.masthead nav{display:flex;gap:20px;margin-left:auto;font-size:13.5px;font-weight:500;letter-spacing:.01em}
+.masthead nav a{color:var(--ink-soft)}
+.masthead nav a:hover{color:var(--gold);text-decoration:none}
+.theme-btn{border:1px solid var(--line-strong);background:transparent;color:var(--ink-soft);border-radius:20px;
+  width:34px;height:34px;cursor:pointer;font-size:15px;display:grid;place-items:center}
+.theme-btn:hover{border-color:var(--gold);color:var(--gold)}
+
+/* ── 히어로 ── */
+.hero{padding:46px 0 30px;border-bottom:1px solid var(--line)}
+.hero .eyebrow{font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.hero h1{font-family:'Georgia','Nanum Myeongjo','Apple SD Gothic Neo',serif;font-weight:700;font-size:clamp(28px,4.5vw,44px);line-height:1.15;letter-spacing:-.02em;margin:0 0 14px;text-wrap:balance}
+.hero .dek{font-size:17px;color:var(--ink-soft);max-width:60ch;margin:0}
+.hero .stamp{margin-top:18px;font-family:'SF Mono','JetBrains Mono','D2Coding',ui-monospace,monospace;font-size:12.5px;color:var(--ink-mute);letter-spacing:.02em}
+
+/* ── 지표 티커 스트립 ── */
+.ticker{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:26px 0}
+.ticker .cell{background:var(--surface);padding:13px 16px;display:flex;flex-direction:column;gap:3px}
+.ticker .k{font-size:11.5px;font-weight:600;letter-spacing:.04em;color:var(--ink-mute);text-transform:uppercase}
+.ticker .v{font-family:'SF Mono','JetBrains Mono','D2Coding',ui-monospace,monospace;font-size:19px;font-weight:600;letter-spacing:-.01em}
+.ticker .d{font-family:'SF Mono','JetBrains Mono','D2Coding',ui-monospace,monospace;font-size:12.5px;font-weight:600}
+
+/* ── 섹션 ── */
+section.block{padding:38px 0;border-bottom:1px solid var(--line)}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:22px}
+.sec-head h2{font-family:'Georgia','Nanum Myeongjo','Apple SD Gothic Neo',serif;font-size:24px;font-weight:700;letter-spacing:-.01em;margin:0}
+.sec-head .num{font-family:'SF Mono','JetBrains Mono','D2Coding',ui-monospace,monospace;font-size:12px;color:var(--gold);font-weight:700;letter-spacing:.1em}
+.sec-head .more{margin-left:auto;font-size:13px;color:var(--ink-mute)}
+
+/* ── 카드 그리드 ── */
+.grid{display:grid;gap:16px}
+.grid.c2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.grid.c3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px 22px;box-shadow:var(--shadow);transition:transform .15s,border-color .15s}
+.card:hover{transform:translateY(-2px);border-color:var(--line-strong)}
+.card h3{font-family:'Georgia','Nanum Myeongjo','Apple SD Gothic Neo',serif;font-size:17.5px;font-weight:700;margin:0 0 8px;line-height:1.4}
+.card .meta{font-family:'SF Mono','JetBrains Mono','D2Coding',ui-monospace,monospace;font-size:11.5px;color:var(--ink-mute);letter-spacing:.02em;margin-bottom:10px;text-transform:uppercase}
+.card p{margin:0 0 8px;color:var(--ink-soft);font-size:14.5px}
+.card ul{margin:6px 0 0;padding-left:18px;display:flex;flex-direction:column;gap:5px;font-size:14px}
+.tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.03em;padding:2px 9px;border-radius:20px;background:var(--gold-soft);color:var(--gold);border:1px solid var(--line)}
+
+/* ── 리스트 항목 ── */
+.feed{display:flex;flex-direction:column;gap:2px}
+.feed .item{display:flex;gap:14px;padding:13px 4px;border-bottom:1px solid var(--line);align-items:baseline}
+.feed .item:last-child{border-bottom:none}
+.feed .t{font-family:'SF Mono','JetBrains Mono','D2Coding',ui-monospace,monospace;font-size:12px;color:var(--ink-mute);white-space:nowrap;min-width:74px}
+.feed .txt{flex:1;font-size:14.5px}
+.feed .src{font-size:12px;color:var(--gold);white-space:nowrap}
+
+/* ── 푸터 ── */
+footer{padding:40px 0 60px;color:var(--ink-mute);font-size:13px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;align-items:center}
+footer .brand-sm{font-family:'Georgia','Nanum Myeongjo','Apple SD Gothic Neo',serif;font-weight:700;color:var(--ink-soft)}
+hr.rule{border:none;border-top:1px solid var(--line);margin:0}
+.prose{max-width:68ch}
+.prose h2{font-family:'Georgia','Nanum Myeongjo','Apple SD Gothic Neo',serif;font-size:22px;margin:32px 0 12px}
+.prose h3{font-family:'Georgia','Nanum Myeongjo','Apple SD Gothic Neo',serif;font-size:18px;margin:24px 0 8px}
+.prose p,.prose li{color:var(--ink-soft)}
+@media (max-width:640px){
+  .masthead nav{display:none}
+  .hero{padding:32px 0 24px}
+}
+</style>
+</head><body>
+<header class="masthead"><div class="wrap">
+  <span class="brand">경제 아젠다<span class="dot">.</span></span>
+  <nav><a href="index.html">대시보드</a><a href="news.html" style="color:var(--gold)">시사</a><a href="macro.html">거시</a><a href="assets.html">자산군</a><a href="wisdom.html">지혜</a><a href="archive.html">아카이브</a></nav>
+  <button class="theme-btn" onclick="__toggleTheme()" aria-label="테마 전환">◐</button>
+</div></header>
+
+<main><section class="hero"><div class="wrap">
+  <div class="eyebrow">News &amp; Issues</div>
+  <h1>정치·금융·실물·산업·시황 시사 분석</h1>
+  <p class="dek">이 섹션은 분석 에이전트가 채워갑니다. control.sh에서 해당 분석 옵션을 실행하면
+     최신 리포트가 여기에 발행됩니다.</p>
+  <div class="stamp">최종 업데이트 · 2026-07-07 17:20 KST</div>
+</div></section></main>
+<footer><hr class="rule"><div class="wrap" style="padding-top:24px">
+  <span class="brand-sm">경제 아젠다</span>
+  <span>· 자동 수집·분석 대시보드</span>
+  <span style="margin-left:auto">개별 채널의 견해이며 투자 권유가 아닙니다.</span>
+</div></footer>
+</body></html>
